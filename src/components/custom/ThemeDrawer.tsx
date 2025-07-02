@@ -60,6 +60,7 @@ export function ThemeDrawer() {
           }
         >
           <PersonStandingIcon className={'size-10'} />
+          <span className="sr-only">Select Theme</span>
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className={'px-6'}>

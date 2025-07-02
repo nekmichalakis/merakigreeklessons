@@ -215,7 +215,10 @@ export default function App() {
           aria-labelledby="contact-info-heading"
           className="max-w-2xl mx-auto"
         >
-          <h1 className="text-3xl font-bold my-6 text-center">
+          <h1
+            className="text-3xl font-bold my-6 text-center"
+            id={'contact-info-heading'}
+          >
             Contact Information
           </h1>
           <div className="space-y-4">
