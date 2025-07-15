@@ -18,45 +18,77 @@ import {
   LibraryIcon,
   CheckIcon,
 } from 'lucide-react';
-import { ThemeDrawer } from '@/components/custom/ThemeDrawer.tsx';
 import { Separator } from '@/components/ui/separator.tsx';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select.tsx';
+import { cn } from '@/lib/utils.ts';
+import { useEffect, useRef, useState } from 'react';
+import { LogoSvg } from '@/assets/logoSvg.tsx';
+import hero from './assets/hero.jpg';
 
 export default function App() {
+  const [selectFocused, setSelectFocused] = useState(false);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const heroRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    heroRef.current = document.querySelector('#hero');
+
+    if (!heroRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(heroRef.current);
+
+    return () => {
+      if (heroRef.current) observer.unobserve(heroRef.current);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen min-w-screen bg-background text-foreground">
+      {/*Logo*/}
+      <a href="/" className="fixed top-4 left-6 z-50" aria-label="Home">
+        <LogoSvg
+          className={cn('h-32', {
+            'text-chart-4': isHeroVisible,
+            'text-chart-3': !isHeroVisible,
+          })}
+        />
+      </a>
+
       {/* Header */}
       <header
+        id={'hero'}
         className="relative min-h-[100vh] flex justify-center text-card"
         style={{
-          backgroundImage: "url('/merakiHero.jpg')",
+          // backgroundImage: "url('/merakiHero.jpg')",
+          backgroundImage: `url(${hero})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center 50%',
+          backgroundPosition: 'center',
         }}
       >
         <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
-        <div className="relative z-10 pb-16 mx-auto pt-30 max-w-[71rem] text-center flex flex-col">
-          <h2 className="text-md md:text-l drop-shadow pb-2">
-            {'MERAKI GREEK LESSONS'}
-          </h2>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow">
-            {
-              'Learn Greek with Chrisa – A Journey into Language, Culture & Connection'
-            }
-          </h1>
-          <h2 className="text-xl md:text-2xl drop-shadow">
-            {
-              'Personalized Greek lessons, group classes, and a unique Book Club experience for learners of all levels.'
-            }
-          </h2>
-          <div className={'h-full flex items-end justify-center gap-4'}>
+        <div className="relative z-10 pb-16 mx-auto  max-w-[71rem] text-center flex flex-1 flex-col">
+          <div className={'flex flex-1 flex-col justify-center'}>
+            <h2 className="text-md md:text-l drop-shadow pb-2">
+              {'MERAKI GREEK LESSONS'}
+            </h2>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow">
+              {
+                'Learn Greek with Chrisa – A Journey into Language, Culture & Connection'
+              }
+            </h1>
+            <h2 className="text-xl md:text-2xl drop-shadow">
+              {
+                'Personalized Greek lessons, group classes, and a unique Book Club experience for learners of all levels.'
+              }
+            </h2>
+          </div>
+          <div className={'flex items-end justify-center gap-4'}>
             <Button
               className={
                 'bg-chart-2 hover:bg-chart-2 hover:opacity-80 p-6 cursor-pointer font-bold'
@@ -98,7 +130,8 @@ export default function App() {
       </header>
 
       <main className="w-full">
-        <ThemeDrawer />
+        {/*<ThemeDrawer />*/}
+
         {/* About Section */}
         <section aria-labelledby="about-heading" className={'bg-chart-4 pt-12'}>
           <div className="max-w-3xl mx-auto text-center ">
@@ -152,7 +185,7 @@ export default function App() {
                 ),
                 title: 'Private Lessons (1:1)',
                 items: [
-                  { label: 'Single lesson (60 minutes):', price: '€25' },
+                  { label: 'Single lesson (50 minutes):', price: '€25' },
 
                   { label: 'Package of 5 lessons:', price: '€115' },
                   { label: 'Package of 10 lessons:', price: '€220' },
@@ -162,7 +195,7 @@ export default function App() {
                 icon: <Users className="w-8 h-8 mx-auto text-chart-6 mb-2" />,
                 title: 'Group Lessons',
                 items: [
-                  { label: 'Per person (60 minutes):', price: '€15' },
+                  { label: 'Per person (50 minutes):', price: '€15' },
                   { label: 'Groups are formed based on level and goals' },
                   { label: ' 2–4 people per group' },
                   { label: 'Custom group packages available on request' },
@@ -174,7 +207,7 @@ export default function App() {
                 ),
                 title: 'Online Greek Book Club',
                 items: [
-                  { label: 'Per session (60 minutes):', price: '€15' },
+                  { label: 'Per session (50 minutes):', price: '€15' },
                   { label: 'Learn Greek through literature & stories' },
                   { label: 'Monthly or bi-weekly group discussions' },
                   { label: 'Great for intermediate and advanced learners' },
@@ -271,20 +304,32 @@ export default function App() {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {[
                 {
-                  name: 'Sophia, UK',
-                  text: "Chrisa's lessons are fun, structured, and so effective. I feel more confident speaking Greek every week!",
+                  name: 'Alexandra, 2025',
+                  text: 'Chrisa is a wonderful Greek teacher and I would recommend her to anyone. She is patient, kind, and always prepares thoughtful and engaging lessons.',
                 },
                 {
-                  name: 'Nikos, Germany',
-                  text: 'The Book Club has helped me connect with the language on a deeper level. Highly recommended!',
+                  name: 'Serg, 2025',
+                  text: 'Chrisa creates a positive, engaging learning environment where lessons are both fun and stress-free. She’s incredibly kind, supportive, and fosters a strong culture of curiosity and growth. ',
                 },
                 {
-                  name: 'Elena, USA',
-                  text: 'I was nervous to start, but Chrisa made me feel welcome and supported. She’s a gifted teacher!',
+                  name: 'Alexandros, 2025',
+                  text: 'Very well prepared lessons, full of useful information, allows a lot of room for self-preparation prior to attempting scenarios, very kind and supportive. I feel more confident after every lesson.',
                 },
               ].map((testimonial, i) => (
                 <Card key={i} className="h-full flex flex-col justify-between">
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 pt-1">
+                    <div
+                      className={cn(
+                        'size-12 rounded-sm text-card flex items-center justify-center text-bold mb-3 text-xl',
+                        {
+                          'bg-chart-6 ': i === 0,
+                          'bg-chart-3 text-white': i === 1,
+                          'bg-chart-7 ': i === 2,
+                        }
+                      )}
+                    >
+                      {testimonial.name[0].toUpperCase()}
+                    </div>
                     <blockquote className="text-lg italic mb-4">
                       “{testimonial.text}”
                     </blockquote>
@@ -347,30 +392,39 @@ export default function App() {
                     />
                   </div>
 
-                  {/*TODO: FIX THISSSS*/}
                   <div className="space-y-2">
-                    <Label htmlFor="service" id={'service-label'}>
+                    <Label
+                      htmlFor="service"
+                      id="service-label"
+                      className="block mb-2 font-medium"
+                    >
                       Service
                     </Label>
-                    <Select>
-                      <SelectTrigger
+                    <div
+                      className={cn(
+                        'className="w-full rounded-md border border-input px-3 bg-background py-2 text-sm shadow-sm',
+                        {
+                          'ring-[3px] ring-ring/50 border-ring': selectFocused,
+                        }
+                      )}
+                    >
+                      <select
+                        onFocus={() => setSelectFocused(true)}
+                        onBlur={() => setSelectFocused(false)}
                         id="service"
-                        aria-labelledby="service"
-                        className={'w-full'}
+                        name="service"
+                        aria-labelledby="service-label"
+                        className={'w-full focus:outline-none focus:ring-0'}
+                        defaultValue=""
                       >
-                        <SelectValue placeholder="Select a service" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="private">
-                            Private Lesson
-                          </SelectItem>
-                          <SelectItem value="group">Group</SelectItem>
-                          <SelectItem value="book-club">Book Club</SelectItem>
-                          <SelectItem value="free-trial">Free Trial</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
+                        <option value="private" className={'bg-card p-2'}>
+                          Private Lesson
+                        </option>
+                        <option value="group">Group</option>
+                        <option value="book-club">Book Club</option>
+                        <option value="free-trial">Free Trial</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div className="space-y-2 col-span-2">
@@ -424,7 +478,8 @@ export default function App() {
               {
                 icon: <MapPin className="w-5 h-5 text-primary" />,
                 label: 'Location',
-                value: 'Athens, Greece (Online lessons worldwide)',
+                value:
+                  'Dimokratias 9, Ag. Nikolaos, Greece (Online lessons worldwide)',
               },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3">
