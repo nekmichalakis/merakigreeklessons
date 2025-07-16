@@ -23,11 +23,15 @@ import { cn } from '@/lib/utils.ts';
 import { useEffect, useRef, useState } from 'react';
 import { LogoSvg } from '@/assets/logoSvg.tsx';
 import hero from './assets/hero.jpg';
+import { useTranslation } from 'react-i18next';
+import Footer from '@/components/custom/Footer.tsx';
 
 export default function App() {
   const [selectFocused, setSelectFocused] = useState(false);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
   const heroRef = useRef<HTMLElement | null>(null);
+
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     heroRef.current = document.querySelector('#hero');
@@ -48,6 +52,10 @@ export default function App() {
     };
   }, []);
 
+  const handleLng = () => {
+    i18n.changeLanguage(i18n.language === 'en' ? 'gr' : 'en');
+  };
+
   return (
     <div className="min-h-screen min-w-screen bg-background text-foreground">
       {/*Logo*/}
@@ -59,6 +67,17 @@ export default function App() {
           })}
         />
       </a>
+
+      {/*Language*/}
+      <Button
+        onClick={handleLng}
+        type={'button'}
+        variant={'ghost'}
+        className="absolute text-chart-4 text-lg top-4 right-6 z-50 hover:bg-transparent hover:text-chart-6"
+        aria-label="Language"
+      >
+        {i18n.language === 'en' ? 'ΕΛΛΗΝΙΚΑ' : 'ENGLISH'}
+      </Button>
 
       {/* Header */}
       <header
@@ -75,17 +94,13 @@ export default function App() {
         <div className="relative z-10 pb-16 mx-auto  max-w-[71rem] text-center flex flex-1 flex-col">
           <div className={'flex flex-1 flex-col justify-center'}>
             <h2 className="text-md md:text-l drop-shadow pb-2">
-              {'MERAKI GREEK LESSONS'}
+              {t('hero.title')}
             </h2>
             <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow">
-              {
-                'Learn Greek with Chrisa – A Journey into Language, Culture & Connection'
-              }
+              {t('hero.description')}
             </h1>
             <h2 className="text-xl md:text-2xl drop-shadow">
-              {
-                'Personalized Greek lessons, group classes, and a unique Book Club experience for learners of all levels.'
-              }
+              {t('hero.subtitle')}
             </h2>
           </div>
           <div className={'flex items-end justify-center gap-4'}>
@@ -494,14 +509,7 @@ export default function App() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-chart-3 text-card border-t border-border mt-12">
-        <div className="container mx-auto px-4 py-6 text-center">
-          <p className="text-background">
-            © 2025 Meraki Greek Lessons - all rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
