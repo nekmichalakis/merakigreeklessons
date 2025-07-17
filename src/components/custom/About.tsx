@@ -19,7 +19,10 @@ const About = () => {
         aria-labelledby="video-heading"
         className="flex justify-center pb-12 bg-chart-4"
       >
-        <div className="relative w-full max-w-[640px] aspect-video">
+        <div
+          tabIndex={0}
+          className="relative w-full max-w-[640px] aspect-video"
+        >
           <iframe
             id="video-heading"
             title="vimeo-player"

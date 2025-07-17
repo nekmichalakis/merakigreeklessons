@@ -10,19 +10,40 @@ import { Input } from '@/components/ui/input.tsx';
 import { cn } from '@/lib/utils.ts';
 import { Textarea } from '@/components/ui/textarea.tsx';
 import { Button } from '@/components/ui/button.tsx';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ChevronDownIcon } from 'lucide-react';
 
-const Contact = () => {
-  const { t } = useTranslation();
+const Contact = ({
+  selectedOption,
+  setSelectedOption,
+}: {
+  selectedOption: string;
+  setSelectedOption: (option: string) => void;
+}) => {
+  const { t, i18n } = useTranslation();
   const [selectFocused, setSelectFocused] = useState(false);
 
-  const options = [
-    { value: 'private', label: t('contact.opt1') },
-    { value: 'group', label: t('contact.opt2') },
-    { value: 'book-club', label: t('contact.opt3') },
-    { value: 'free-trial', label: t('contact.opt4') },
-  ];
+  const isEnglish = i18n.language.startsWith('en');
+
+  const baseOptions = useMemo(
+    () => [
+      { value: 'private', label: t('contact.opt1') },
+      { value: 'group', label: t('contact.opt2') },
+      { value: 'book-club', label: t('contact.opt3') },
+      { value: 'free-trial', label: t('contact.opt4') },
+    ],
+    [t]
+  );
+
+  const options = useMemo(() => {
+    return isEnglish
+      ? baseOptions
+      : baseOptions.concat({
+          value: 'tutoring',
+          label: 'Νεοελληνική Γλώσσα για Μαθητές',
+        });
+  }, [isEnglish, baseOptions]);
 
   return (
     <section
@@ -83,7 +104,7 @@ const Contact = () => {
                 </Label>
                 <div
                   className={cn(
-                    'className="w-full rounded-md border border-input px-3 bg-background py-2 text-sm shadow-sm',
+                    'relative className="w-full rounded-md border border-input px-3 bg-background py-2 text-sm shadow-sm',
                     {
                       'ring-[3px] ring-ring/50 border-ring': selectFocused,
                     }
@@ -95,8 +116,9 @@ const Contact = () => {
                     id="service"
                     name="service"
                     aria-labelledby="service-label"
-                    className={'w-full focus:outline-none focus:ring-0'}
-                    defaultValue=""
+                    className="appearance-none bg-white text-gray-900 text-sm focus:outline-none focus:ring-0 block w-full"
+                    value={selectedOption}
+                    onChange={(e) => setSelectedOption(e.target.value)}
                   >
                     {options.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -104,6 +126,13 @@ const Contact = () => {
                       </option>
                     ))}
                   </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center">
+                    <ChevronDownIcon
+                      width={16}
+                      height={16}
+                      className={'text-gray-400'}
+                    />
+                  </div>
                 </div>
               </div>
 

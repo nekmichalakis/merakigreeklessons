@@ -9,16 +9,21 @@ import {
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils.ts';
 import { useMemo } from 'react';
+import { Button } from '@/components/ui/button.tsx';
 
-const PricingPlans = () => {
+const PricingPlans = ({
+  setSelectedOption,
+}: {
+  setSelectedOption: (option: string) => void;
+}) => {
   const { t, i18n } = useTranslation();
 
   const isEnglish = i18n.language.startsWith('en');
-  console.log('Current language:', i18n.language);
 
   const basePlans = useMemo(
     () => [
       {
+        value: 'private',
         icon: <BookOpen className="w-8 h-8 mx-auto text-chart-3 mb-2" />,
         title: t('pricing.plan1.title'),
         items: [
@@ -29,6 +34,7 @@ const PricingPlans = () => {
         ],
       },
       {
+        value: 'group',
         icon: <Users className="w-8 h-8 mx-auto text-chart-6 mb-2" />,
         title: t('pricing.plan2.title'),
         items: [
@@ -39,6 +45,7 @@ const PricingPlans = () => {
         ],
       },
       {
+        value: 'book-club',
         icon: <LibraryIcon className="w-8 h-8 mx-auto text-chart-2 mb-2" />,
         title: t('pricing.plan3.title'),
         items: [
@@ -56,6 +63,7 @@ const PricingPlans = () => {
     return isEnglish
       ? basePlans
       : basePlans.concat({
+          value: 'tutoring',
           icon: <HouseIcon className="w-8 h-8 mx-auto text-chart-1 mb-2" />,
           title: t('pricing.plan4.title'),
           items: [
@@ -87,7 +95,21 @@ const PricingPlans = () => {
           <Card key={i}>
             <CardHeader className="text-center">
               {item.icon}
-              <CardTitle className="text-lg">{item.title}</CardTitle>
+              <CardTitle>
+                <Button
+                  type={'button'}
+                  variant={'ghost'}
+                  className="text-lg font-semibold cursor-pointer"
+                  onClick={() => {
+                    document
+                      .getElementById('contact')
+                      ?.scrollIntoView({ behavior: 'smooth' });
+                    setSelectedOption(item.value);
+                  }}
+                >
+                  {item.title}
+                </Button>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-center">

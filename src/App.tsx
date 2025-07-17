@@ -9,20 +9,25 @@ import BookClub from '@/components/custom/BookClub.tsx';
 import Testimonials from '@/components/custom/Testimonials.tsx';
 import Contact from '@/components/custom/Contact.tsx';
 import Info from '@/components/custom/Info.tsx';
+import { useState } from 'react';
 
 export default function App() {
+  const [selectedOption, setSelectedOption] = useState('');
   return (
     <div className="min-h-screen w-screen overflow-x-hidden bg-background text-foreground">
       <Logo />
       <ChangeLanguageButton />
-      <Header />
+      <Header setSelectedOption={setSelectedOption} />
 
       <main className="w-full">
         <About />
-        <PricingPlans />
-        <BookClub />
+        <PricingPlans setSelectedOption={setSelectedOption} />
+        <BookClub setSelectedOption={setSelectedOption} />
         <Testimonials />
-        <Contact />
+        <Contact
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+        />
         <Separator className={'max-w-[80%] mx-auto'} />
         <Info />
       </main>

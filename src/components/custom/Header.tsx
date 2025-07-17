@@ -2,7 +2,11 @@ import acropolis from '@/assets/acropolis.jpg';
 import { Button } from '@/components/ui/button.tsx';
 import { useTranslation } from 'react-i18next';
 
-const Header = () => {
+const Header = ({
+  setSelectedOption,
+}: {
+  setSelectedOption: (option: string) => void;
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -30,18 +34,19 @@ const Header = () => {
         </div>
         <div
           className={
-            'flex flex-col md:flex-row items-center md:items-end justify-center gap-4 pb-4'
+            'flex flex-col md:flex-row w-2/3 self-center md:items-end justify-center gap-4 pb-4'
           }
         >
           <Button
             className={
               'bg-chart-2 hover:bg-chart-2 hover:opacity-80 p-6 cursor-pointer font-bold'
             }
-            onClick={() =>
+            onClick={() => {
               document
                 .getElementById('contact')
-                ?.scrollIntoView({ behavior: 'smooth' })
-            }
+                ?.scrollIntoView({ behavior: 'smooth' });
+              setSelectedOption('free-trial');
+            }}
           >
             {t('header.button1')}
           </Button>
@@ -61,11 +66,12 @@ const Header = () => {
             className={
               'bg-chart-3 hover:bg-chart-3 hover:opacity-80 p-6 cursor-pointer font-bold'
             }
-            onClick={() =>
+            onClick={() => {
               document
                 .getElementById('contact')
-                ?.scrollIntoView({ behavior: 'smooth' })
-            }
+                ?.scrollIntoView({ behavior: 'smooth' });
+              setSelectedOption('book-club');
+            }}
           >
             {t('header.button3')}
           </Button>

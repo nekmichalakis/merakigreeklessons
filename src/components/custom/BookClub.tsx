@@ -2,7 +2,11 @@ import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button.tsx';
 import { useTranslation } from 'react-i18next';
 
-const BookClub = () => {
+const BookClub = ({
+  setSelectedOption,
+}: {
+  setSelectedOption: (option: string) => void;
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -11,7 +15,7 @@ const BookClub = () => {
       aria-labelledby="book-club-heading"
       className="py-12 bg-chart-2 text-card px-4"
     >
-      <div className="max-w-3xl mx-auto px-4 text-center">
+      <div className="max-w-[41rem] mx-auto px-4 text-center">
         <h2
           id="book-club-heading"
           className="text-3xl font-bold mb-4 flex flex-col md:flex-row items-center justify-center gap-2"
@@ -25,7 +29,7 @@ const BookClub = () => {
         <p className="text-lg font-medium leading-relaxed mb-4">
           {t('book.desc2')}
         </p>
-        <ul className="text-left max-w-md mx-auto px-8 mb-8 space-y-2">
+        <ul className="text-left max-w-md mx-auto px-8 pt-4 mb-8 space-y-2">
           {[t('book.item1'), t('book.item2'), t('book.item3')].map(
             (text, index) => (
               <li key={index} className="flex items-start gap-3">
@@ -37,12 +41,13 @@ const BookClub = () => {
         </ul>
         <div className="flex justify-center">
           <Button
-            className="mt-4 bg-background hover:bg-background text-foreground p-6 font-bold hover:opacity-90"
-            onClick={() =>
+            className="mt-4 bg-background cursor-pointer hover:bg-background text-foreground p-6 font-bold hover:opacity-90"
+            onClick={() => {
               document
                 .getElementById('contact')
-                ?.scrollIntoView({ behavior: 'smooth' })
-            }
+                ?.scrollIntoView({ behavior: 'smooth' });
+              setSelectedOption('book-club');
+            }}
           >
             {t('book.button')}
           </Button>
