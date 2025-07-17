@@ -28,7 +28,7 @@ const Logo = () => {
   return (
     <a
       href="/"
-      className="fixed hidden md:visible top-4 left-6 z-50"
+      className="fixed hidden md:block top-4 left-6 z-50"
       aria-label="Home"
     >
       <LogoSvg
