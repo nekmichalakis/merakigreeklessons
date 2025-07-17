@@ -26,7 +26,11 @@ const Logo = () => {
   }, []);
 
   return (
-    <a href="/" className="fixed top-4 left-6 z-50" aria-label="Home">
+    <a
+      href="/"
+      className="fixed hidden md:visible top-4 left-6 z-50"
+      aria-label="Home"
+    >
       <LogoSvg
         className={cn('h-32', {
           'text-chart-4': isHeroVisible,

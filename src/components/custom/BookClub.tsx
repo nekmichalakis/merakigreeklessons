@@ -9,12 +9,12 @@ const BookClub = () => {
     <section
       id="book-club"
       aria-labelledby="book-club-heading"
-      className="py-12 bg-chart-2 text-card"
+      className="py-12 bg-chart-2 text-card px-4"
     >
       <div className="max-w-3xl mx-auto px-4 text-center">
         <h2
           id="book-club-heading"
-          className="text-3xl font-bold mb-4 flex items-center justify-center gap-2"
+          className="text-3xl font-bold mb-4 flex flex-col md:flex-row items-center justify-center gap-2"
         >
           <span role="img" aria-label="books">
             📚
@@ -25,7 +25,7 @@ const BookClub = () => {
         <p className="text-lg font-medium leading-relaxed mb-4">
           {t('book.desc2')}
         </p>
-        <ul className="text-left max-w-md mx-auto mb-8 space-y-2">
+        <ul className="text-left max-w-md mx-auto px-8 mb-8 space-y-2">
           {[t('book.item1'), t('book.item2'), t('book.item3')].map(
             (text, index) => (
               <li key={index} className="flex items-start gap-3">

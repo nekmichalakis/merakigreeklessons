@@ -12,7 +12,7 @@ import Info from '@/components/custom/Info.tsx';
 
 export default function App() {
   return (
-    <div className="min-h-screen min-w-screen bg-background text-foreground">
+    <div className="min-h-screen w-screen overflow-x-hidden bg-background text-foreground">
       <Logo />
       <ChangeLanguageButton />
       <Header />

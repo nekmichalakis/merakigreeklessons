@@ -4,7 +4,10 @@ const About = () => {
   const { t } = useTranslation();
 
   return (
-    <section aria-labelledby="about-heading" className={'bg-chart-4 pt-12'}>
+    <section
+      aria-labelledby="about-heading"
+      className={'bg-chart-4 pt-12 px-4'}
+    >
       <div className="max-w-3xl mx-auto text-center ">
         <h2 id="about-heading" className="text-3xl font-bold mb-8">
           {t('about.title')}
@@ -16,14 +19,15 @@ const About = () => {
         aria-labelledby="video-heading"
         className="flex justify-center pb-12 bg-chart-4"
       >
-        <iframe
-          id="video-heading"
-          title="vimeo-player"
-          src="https://player.vimeo.com/video/1045048133?h=cbaa46a6e2"
-          width="640"
-          height="360"
-          allowFullScreen
-        />
+        <div className="relative w-full max-w-[640px] aspect-video">
+          <iframe
+            id="video-heading"
+            title="vimeo-player"
+            src="https://player.vimeo.com/video/1045048133?h=cbaa46a6e2"
+            className="absolute top-0 left-0 w-full h-full"
+            allowFullScreen
+          />
+        </div>
       </div>
     </section>
   );

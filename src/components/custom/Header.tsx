@@ -1,4 +1,4 @@
-import hero from '@/assets/hero.jpg';
+import acropolis from '@/assets/acropolis.jpg';
 import { Button } from '@/components/ui/button.tsx';
 import { useTranslation } from 'react-i18next';
 
@@ -10,14 +10,13 @@ const Header = () => {
       id={'hero'}
       className="relative min-h-[100vh] flex justify-center text-card"
       style={{
-        // backgroundImage: "url('/merakiHero.jpg')",
-        backgroundImage: `url(${hero})`,
+        backgroundImage: `url(${acropolis})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
       <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
-      <div className="relative z-10 pb-16 mx-auto  max-w-[71rem] text-center flex flex-1 flex-col">
+      <div className="relative z-10 pb-16 px-4 mx-auto max-w-[71rem] text-center flex w-full flex-col">
         <div className={'flex flex-1 flex-col justify-center'}>
           <h2 className="text-md md:text-l drop-shadow pb-2">
             {t('header.title')}
@@ -29,7 +28,11 @@ const Header = () => {
             {t('header.subtitle')}
           </h2>
         </div>
-        <div className={'flex items-end justify-center gap-4'}>
+        <div
+          className={
+            'flex flex-col md:flex-row items-center md:items-end justify-center gap-4 pb-4'
+          }
+        >
           <Button
             className={
               'bg-chart-2 hover:bg-chart-2 hover:opacity-80 p-6 cursor-pointer font-bold'

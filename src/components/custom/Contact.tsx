@@ -28,7 +28,7 @@ const Contact = () => {
     <section
       id={'contact'}
       aria-labelledby="contact-heading"
-      className="max-w-2xl mx-auto py-12"
+      className="max-w-2xl mx-auto py-12 px-4"
     >
       <Card>
         <CardHeader className="text-center">
@@ -43,6 +43,7 @@ const Contact = () => {
               <div className="space-y-2">
                 <Label htmlFor="firstName"> {t('contact.first')}</Label>
                 <Input
+                  className={'placeholder:text-sm'}
                   id="firstName"
                   name="firstName"
                   placeholder={t('contact.firstPlace')}
@@ -52,6 +53,7 @@ const Contact = () => {
               <div className="space-y-2">
                 <Label htmlFor="lastName"> {t('contact.last')}</Label>
                 <Input
+                  className={'placeholder:text-sm'}
                   id="lastName"
                   name="lastName"
                   placeholder={t('contact.lastPlace')}
@@ -62,6 +64,7 @@ const Contact = () => {
               <div className="space-y-2 col-span-2">
                 <Label htmlFor="email"> {t('contact.email')}</Label>
                 <Input
+                  className={'placeholder:text-sm'}
                   id="email"
                   name="email"
                   type="email"
@@ -107,10 +110,10 @@ const Contact = () => {
               <div className="space-y-2 col-span-2">
                 <Label htmlFor="message"> {t('contact.message')}</Label>
                 <Textarea
+                  className={'placeholder:text-sm min-h-[120px]'}
                   id="message"
                   name="message"
                   placeholder={t('contact.messagePlace')}
-                  className="min-h-[120px]"
                 />
               </div>
             </div>

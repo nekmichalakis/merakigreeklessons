@@ -13,7 +13,8 @@ import { useMemo } from 'react';
 const PricingPlans = () => {
   const { t, i18n } = useTranslation();
 
-  const isEnglish = i18n.language === 'en';
+  const isEnglish = i18n.language.startsWith('en');
+  console.log('Current language:', i18n.language);
 
   const basePlans = useMemo(
     () => [
@@ -69,7 +70,7 @@ const PricingPlans = () => {
     <section
       id="pricing"
       aria-labelledby="services-heading "
-      className={'py-12'}
+      className={'py-12 px-4'}
     >
       <h2 id="services-heading" className="text-3xl font-bold mb-8 text-center">
         {t('pricing.title')}
