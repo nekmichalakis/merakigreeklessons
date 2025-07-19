@@ -1,6 +1,8 @@
-import { FacebookIcon, InstagramIcon, Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion, type Variants } from 'framer-motion';
+import { InstagramSvg } from '@/assets/instagramSvg.tsx';
+import { FacebookSvg } from '@/assets/facebookSvg.tsx';
 
 const containerVariants = {
   hidden: {},
@@ -24,12 +26,12 @@ const Info = () => {
       value: ['chrisatz26@gmail.com', 'merakigreeklessons@gmail.com'],
     },
     {
-      icon: <InstagramIcon className="size-5 text-primary" />,
+      icon: <InstagramSvg className="size-5 text-primary" />,
       label: 'Instagram',
       value: ['@meraki_greek_lessons'],
     },
     {
-      icon: <FacebookIcon className="size-5 text-primary" />,
+      icon: <FacebookSvg className="size-5 text-primary" />,
       label: 'Facebook',
       value: ['Meraki Greek Lessons'],
     },
