@@ -1,13 +1,21 @@
 import acropolis from '@/assets/acropolis.jpg';
 import { Button } from '@/components/ui/button.tsx';
 import { useTranslation } from 'react-i18next';
+import { motion, type Variants } from 'framer-motion';
+
+const headerVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+};
+
+const MotionButton = motion(Button);
 
 const Header = ({
   setSelectedOption,
 }: {
   setSelectedOption: (option: string) => void;
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <header
@@ -20,7 +28,14 @@ const Header = ({
       }}
     >
       <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
-      <div className="relative z-10 pb-16 px-4 mx-auto max-w-[71rem] text-center flex w-full flex-col">
+      <motion.div
+        key={i18n.language}
+        variants={headerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="relative z-10 pb-16 px-4 mx-auto max-w-[71rem] text-center flex w-full flex-col"
+      >
         <div className={'flex flex-1 flex-col justify-center'}>
           <h2 className="text-md md:text-l drop-shadow pb-2">
             {t('header.title')}
@@ -37,9 +52,9 @@ const Header = ({
             'flex flex-col md:flex-row w-2/3 self-center md:items-end justify-center gap-4 pb-4'
           }
         >
-          <Button
+          <MotionButton
             className={
-              'bg-chart-2 hover:bg-chart-2 hover:opacity-80 p-6 cursor-pointer font-bold'
+              'bg-chart-2 hover:bg-chart-2 hover:opacity-90 p-6 cursor-pointer font-bold'
             }
             onClick={() => {
               document
@@ -47,24 +62,28 @@ const Header = ({
                 ?.scrollIntoView({ behavior: 'smooth' });
               setSelectedOption('free-trial');
             }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             {t('header.button1')}
-          </Button>
-          <Button
+          </MotionButton>
+          <MotionButton
             className={
-              'bg-chart-3 hover:bg-chart-3 hover:opacity-80 p-6 cursor-pointer font-bold'
+              'bg-chart-3 hover:bg-chart-3 hover:opacity-90 p-6 cursor-pointer font-bold'
             }
             onClick={() =>
               document
                 .getElementById('pricing')
                 ?.scrollIntoView({ behavior: 'smooth' })
             }
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             {t('header.button2')}
-          </Button>
-          <Button
+          </MotionButton>
+          <MotionButton
             className={
-              'bg-chart-3 hover:bg-chart-3 hover:opacity-80 p-6 cursor-pointer font-bold'
+              'bg-chart-3 hover:bg-chart-3 hover:opacity-90 p-6 cursor-pointer font-bold'
             }
             onClick={() => {
               document
@@ -72,11 +91,13 @@ const Header = ({
                 ?.scrollIntoView({ behavior: 'smooth' });
               setSelectedOption('book-club');
             }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             {t('header.button3')}
-          </Button>
+          </MotionButton>
         </div>
-      </div>
+      </motion.div>
     </header>
   );
 };

@@ -32,7 +32,7 @@ const Logo = () => {
       aria-label="Home"
     >
       <LogoSvg
-        className={cn('h-32', {
+        className={cn('h-24', {
           'text-chart-4': isHeroVisible,
           'text-chart-3': !isHeroVisible,
         })}

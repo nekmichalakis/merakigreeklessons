@@ -9,7 +9,23 @@ import {
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils.ts';
 import { useMemo } from 'react';
-import { Button } from '@/components/ui/button.tsx';
+import { motion, type Variants } from 'framer-motion';
+
+const MotionCard = motion(Card);
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
+};
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2, // Adjust delay between cards
+    },
+  },
+};
 
 const PricingPlans = ({
   setSelectedOption,
@@ -56,7 +72,7 @@ const PricingPlans = ({
         ],
       },
     ],
-    [t]
+    [t, i18n.language]
   );
 
   const plans = useMemo(() => {
@@ -72,7 +88,7 @@ const PricingPlans = ({
             { label: t('pricing.plan4.d3') },
           ],
         });
-  }, [isEnglish, basePlans, t]);
+  }, [isEnglish, basePlans, t, i18n.language]);
 
   return (
     <section
@@ -83,39 +99,55 @@ const PricingPlans = ({
       <h2 id="services-heading" className="text-3xl font-bold mb-8 text-center">
         {t('pricing.title')}
       </h2>
-      <div
+      <motion.div
+        key={plans.length}
         className={cn(
           'grid md:grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto',
           {
-            'lg:grid-cols-4': !isEnglish,
+            'lg:grid-cols-3': plans.length === 3,
+            'lg:grid-cols-4': plans.length === 4,
           }
         )}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
       >
         {plans.map((item, i) => (
-          <Card key={i}>
-            <CardHeader className="text-center">
+          <MotionCard
+            key={i}
+            onClick={() => {
+              document
+                .getElementById('contact')
+                ?.scrollIntoView({ behavior: 'smooth' });
+              setSelectedOption(item.value);
+            }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                document
+                  .getElementById('contact')
+                  ?.scrollIntoView({ behavior: 'smooth' });
+                setSelectedOption(item.value);
+              }
+            }}
+            variants={cardVariants}
+            className="cursor-pointer transition hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <CardHeader className="text-center flex flex-col items-center">
               {item.icon}
-              <CardTitle>
-                <Button
-                  type={'button'}
-                  variant={'ghost'}
-                  className="text-lg font-semibold cursor-pointer"
-                  onClick={() => {
-                    document
-                      .getElementById('contact')
-                      ?.scrollIntoView({ behavior: 'smooth' });
-                    setSelectedOption(item.value);
-                  }}
-                >
-                  {item.title}
-                </Button>
+              <CardTitle className="text-lg font-semibold">
+                {item.title}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-center">
-                {item.items.map((item) => (
+                {item.items.map((item, index) => (
                   <div
-                    key={item.label}
+                    key={item.label || index}
                     className={'flex gap-2 items-center justify-center mb-2'}
                   >
                     <p>{item.label}</p>
@@ -126,9 +158,9 @@ const PricingPlans = ({
                 ))}
               </CardDescription>
             </CardContent>
-          </Card>
+          </MotionCard>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };
