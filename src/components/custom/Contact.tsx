@@ -10,9 +10,10 @@ import { Input } from '@/components/ui/input.tsx';
 import { cn } from '@/lib/utils.ts';
 import { Textarea } from '@/components/ui/textarea.tsx';
 import { Button } from '@/components/ui/button.tsx';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDownIcon } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = ({
   selectedOption,
@@ -23,6 +24,9 @@ const Contact = ({
 }) => {
   const { t, i18n } = useTranslation();
   const [selectFocused, setSelectFocused] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const form = useRef<HTMLFormElement>(null);
 
   const isEnglish = i18n.language.startsWith('en');
 
@@ -45,6 +49,32 @@ const Contact = ({
         });
   }, [isEnglish, baseOptions]);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form.current ?? '',
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          console.log('Email sent successfully:', result.text);
+          alert('Message sent!');
+          form.current?.reset();
+        },
+        (error) => {
+          console.error('FAILED...', error.text);
+          alert('Failed to send message. Try again later.');
+        }
+      )
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
   return (
     <section
       id={'contact'}
@@ -59,7 +89,7 @@ const Contact = ({
           <CardDescription>{t('contact.desc')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form ref={form} className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="firstName"> {t('contact.first')}</Label>
@@ -150,8 +180,34 @@ const Contact = ({
             <Button
               type="submit"
               className="w-full bg-chart-3 hover:bg-chart-3 hover:opacity-80"
+              disabled={isLoading}
             >
-              {t('contact.button')}
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8z"
+                    ></path>
+                  </svg>
+                  {t('contact.button')}
+                </div>
+              ) : (
+                t('contact.button')
+              )}
             </Button>
           </form>
         </CardContent>

@@ -28,7 +28,7 @@ const Info = () => {
     {
       icon: <InstagramSvg className="size-5 text-primary" />,
       label: 'Instagram',
-      value: ['@meraki_greek_lessons'],
+      value: ['@merakigreeklessons'],
     },
     {
       icon: <FacebookSvg className="size-5 text-primary" />,
