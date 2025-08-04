@@ -2,6 +2,9 @@ import { Card, CardContent } from '@/components/ui/card.tsx';
 import { cn } from '@/lib/utils.ts';
 import { useTranslation } from 'react-i18next';
 import { motion, type Variants } from 'framer-motion';
+import { Button } from '@/components/ui/button.tsx';
+import { useState } from 'react';
+import TestimonialDialog from '@/components/custom/TestimonialDialog.tsx';
 
 const containerVariants = {
   hidden: {},
@@ -24,6 +27,8 @@ const MotionCard = motion(Card);
 const Testimonials = () => {
   const { t, i18n } = useTranslation();
 
+  const [open, setOpen] = useState(false);
+
   const testimonials = [
     {
       name: 'Alexandra, 2025',
@@ -44,8 +49,8 @@ const Testimonials = () => {
       aria-labelledby="testimonials-heading"
       className="py-12 bg-chart-4 text-foreground"
     >
-      <div className="max-w-5xl mx-auto px-4 text-center">
-        <h2 id="testimonials-heading" className="text-3xl font-bold mb-8">
+      <div className="max-w-5xl mx-auto px-4 text-center space-y-8">
+        <h2 id="testimonials-heading" className="text-3xl font-bold">
           {t('testimonials.title')}
         </h2>
         <motion.div
@@ -62,20 +67,27 @@ const Testimonials = () => {
               variants={cardVariants}
               className="h-full flex flex-col justify-between"
             >
-              <CardContent className="p-6 pt-1">
-                <div
-                  className={cn(
-                    'size-12 rounded-sm text-card flex items-center justify-center text-bold mb-3 text-xl',
-                    {
-                      'bg-chart-6 ': i === 0,
-                      'bg-chart-3 text-white': i === 1,
-                      'bg-chart-7 ': i === 2,
-                    }
-                  )}
-                >
-                  {testimonial.name[0].toUpperCase()}
+              <CardContent className="p-6 pt-1 flex flex-col gap-4">
+                <div className="flex items-center justify-between">
+                  <div
+                    className={cn(
+                      'size-12 rounded-sm text-card flex items-center justify-center text-bold text-xl',
+                      {
+                        'bg-chart-6 ': i === 0,
+                        'bg-chart-3 text-white': i === 1,
+                        'bg-chart-7 ': i === 2,
+                      }
+                    )}
+                  >
+                    {testimonial.name[0].toUpperCase()}
+                  </div>
+                  <div className="flex text-yellow-500">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <span key={index}>{'★'}</span>
+                    ))}
+                  </div>
                 </div>
-                <blockquote className="text-lg italic mb-4">
+                <blockquote className="text-lg italic">
                   “{testimonial.text}”
                 </blockquote>
                 <p className="text-sm font-semibold text-right text-muted-foreground">
@@ -85,7 +97,14 @@ const Testimonials = () => {
             </MotionCard>
           ))}
         </motion.div>
+        <Button
+          className="bg-chart-3 hover:bg-chart-3 cursor-pointer p-6 font-bold hover:opacity-90"
+          onClick={() => setOpen(true)}
+        >
+          {t('testimonials.button')}
+        </Button>
       </div>
+      <TestimonialDialog open={open} setOpen={setOpen} />
     </section>
   );
 };

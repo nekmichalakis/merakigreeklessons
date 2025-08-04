@@ -14,6 +14,7 @@ import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDownIcon } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { toast } from 'sonner';
 
 const Contact = ({
   selectedOption,
@@ -62,12 +63,12 @@ const Contact = ({
       .then(
         (result) => {
           console.log('Email sent successfully:', result.text);
-          alert('Message sent!');
+          toast(t('toast.success'));
           form.current?.reset();
         },
         (error) => {
           console.error('FAILED...', error.text);
-          alert('Failed to send message. Try again later.');
+          toast(t('toast.error'));
         }
       )
       .finally(() => {

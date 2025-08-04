@@ -10,6 +10,7 @@ import Testimonials from '@/components/custom/Testimonials.tsx';
 import Contact from '@/components/custom/Contact.tsx';
 import Info from '@/components/custom/Info.tsx';
 import { useState } from 'react';
+import { Toaster } from '@/components/ui/sonner.tsx';
 
 export default function App() {
   const [selectedOption, setSelectedOption] = useState('');
@@ -33,6 +34,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <Toaster />
     </div>
   );
 }

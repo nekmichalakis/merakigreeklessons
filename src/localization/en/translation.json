@@ -46,9 +46,17 @@
   },
   "testimonials": {
      "title": "What Students Say",
+     "button": "READ MORE",
      "t1": "Chrisa is a wonderful Greek teacher and I would recommend her to anyone. She is patient, kind, and always prepares thoughtful and engaging lessons.",
      "t2": "Chrisa creates a positive, engaging learning environment where lessons are both fun and stress-free. She’s incredibly kind, supportive, and fosters a strong culture of curiosity and growth.",
-     "t3": "Very well prepared lessons, full of useful information, allows a lot of room for self-preparation prior to attempting scenarios, very kind and supportive. I feel more confident after every lesson."
+     "t3": "Very well prepared lessons, full of useful information, allows a lot of room for self-preparation prior to attempting scenarios, very kind and supportive. I feel more confident after every lesson.",
+     "all": "All Testimonials",
+    "t4": "Chrisa is professional, patient and creative in her lesson plans; answers questions promptly and has fantastic communication skills. Would highly recommend!",
+    "t5": "One of the greatest teachers out there : smart, pedagological and kind -- I will definitely recommend Chrisa to everyone.",
+    "t6": "I am really satisfied and happy with Chrisa she has passion for the tutoring and motivated. She has also a really good book for tutoring, and also her self made documents. It makes fun the class with her, is flexible and cancel never the classes. :)",
+    "t7": "Chrisa makes learning Greek very interesting and fun!",
+    "t8": "I've been working with Chrisa for a while now to help reconnect with my Greek heritage, and to also prepare for a trip to Greece later on in the year. When we first met, Chrisa listened to the goals I wanted to achieve, set up specific lessons catering to my desires, and from there has encouraged and built up my confidence both with speaking and reading Greek. I am very grateful to have found such an excellent tutor. Ευχαριστώ πολύ!",
+    "t9": "I've started learning Greek with Chrisa, as my tutor. It's been a great experience since the beginning! Chrisa shared early on the required resources for the Greek grammar. The grammar is logical, but it takes practice (self) and a good intro (the tutor). Chrisa is very patient! As beginners, we all make mistakes. Chrisa understands that, and will go over the inner mechanisms of the grammar and vocabulary, as many times as needed. After your one hour Greek lesson, you will realize that your fancy Greek word that you struggled with, may actually be in your own language already. Just in a modified form. Ego everyone ? (Εγώ) Chrisa's main assets are the background in education and the natural advantage of a native speaker."
   },
   "contact": {
      "title": "Get in Touch",
@@ -75,5 +83,9 @@
    },
   "footer": {
      "text1": "© 2025 Meraki Greek Lessons. All rights reserved."
+  },
+  "toast": {
+    "success": "Email sent successfully!",
+    "error": "Failed to send message. Try again later."
   }
 }
