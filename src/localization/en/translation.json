@@ -33,6 +33,13 @@
       "d2": "Learn Greek through literature & stories",
       "d3": "Monthly or bi-weekly group discussions",
       "d4": "Great for intermediate and advanced learners"
+   },
+   "plan5": {
+     "title": "Copywriting",
+     "d1": "Social media, websites & advertising",
+     "d2": "Articles for newspapers, blogs & magazines",
+     "d3": "Editing, proofreading & creative concepts",
+     "d4": "Let's make your words shine ✨"
    }
  },
   "book": {
@@ -69,6 +76,7 @@
       "opt2": "Group Lesson",
       "opt3": "Book Club",
       "opt4": "Free Trial",
+      "opt5": "Copywriting",
       "message": "Message",
       "button": "Send Messsage",
       "firstPlace": "Your first name",

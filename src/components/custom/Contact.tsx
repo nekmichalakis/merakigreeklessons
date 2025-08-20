@@ -37,6 +37,7 @@ const Contact = ({
       { value: 'group', label: t('contact.opt2') },
       { value: 'book-club', label: t('contact.opt3') },
       { value: 'free-trial', label: t('contact.opt4') },
+      { value: 'copywriting', label: t('contact.opt5') },
     ],
     [t]
   );

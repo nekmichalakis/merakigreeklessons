@@ -1,4 +1,10 @@
-import { BookOpen, HouseIcon, LibraryIcon, Users } from 'lucide-react';
+import {
+  BookOpen,
+  HouseIcon,
+  LibraryIcon,
+  NotebookPenIcon,
+  Users,
+} from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -71,6 +77,17 @@ const PricingPlans = ({
           { label: t('pricing.plan3.d4') },
         ],
       },
+      {
+        value: 'copywriting',
+        icon: <NotebookPenIcon className="w-8 h-8 mx-auto text-chart-1 mb-2" />,
+        title: t('pricing.plan5.title'),
+        items: [
+          { label: t('pricing.plan5.d1') },
+          { label: t('pricing.plan5.d2') },
+          { label: t('pricing.plan5.d3') },
+          { label: t('pricing.plan5.d4') },
+        ],
+      },
     ],
     [t, i18n.language]
   );
@@ -80,12 +97,15 @@ const PricingPlans = ({
       ? basePlans
       : basePlans.concat({
           value: 'tutoring',
-          icon: <HouseIcon className="w-8 h-8 mx-auto text-chart-1 mb-2" />,
+          icon: <HouseIcon className="w-8 h-8 mx-auto text-chart-3 mb-2" />,
           title: t('pricing.plan4.title'),
           items: [
             { label: t('pricing.plan4.d1'), price: '€10' },
             { label: t('pricing.plan4.d2') },
             { label: t('pricing.plan4.d3') },
+            { label: ' ' },
+            { label: ' ' },
+            { label: ' ' },
           ],
         });
   }, [isEnglish, basePlans, t, i18n.language]);
@@ -101,13 +121,7 @@ const PricingPlans = ({
       </h2>
       <motion.div
         key={plans.length}
-        className={cn(
-          'grid md:grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto',
-          {
-            'lg:grid-cols-3': plans.length === 3,
-            'lg:grid-cols-4': plans.length === 4,
-          }
-        )}
+        className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -133,7 +147,13 @@ const PricingPlans = ({
               }
             }}
             variants={cardVariants}
-            className="cursor-pointer transition hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className={cn(
+              'w-full sm:w-[300px] cursor-pointer transition hover:shadow-lg',
+              {
+                'md:w-[23%]': plans.length === 4,
+                'md:w-[30%]': plans.length === 5,
+              }
+            )}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
