@@ -100,7 +100,7 @@ const PricingPlans = ({
           icon: <HouseIcon className="w-8 h-8 mx-auto text-chart-3 mb-2" />,
           title: t('pricing.plan4.title'),
           items: [
-            { label: t('pricing.plan4.d1'), price: '€10' },
+            { label: t('pricing.plan4.d1'), price: '€15' },
             { label: t('pricing.plan4.d2') },
             { label: t('pricing.plan4.d3') },
             { label: ' ' },
