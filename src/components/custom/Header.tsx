@@ -2,6 +2,7 @@ import acropolis from '@/assets/acropolis.jpg';
 import { Button } from '@/components/ui/button.tsx';
 import { useTranslation } from 'react-i18next';
 import { motion, type Variants } from 'framer-motion';
+import espa from '@/assets/espa.png';
 
 const headerVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -27,6 +28,11 @@ const Header = ({
         backgroundPosition: 'center',
       }}
     >
+      <img
+        src={espa}
+        alt="Espa banner"
+        className="absolute w-1/3  md:w-1/5 bottom-3 md:left-3 z-10"
+      />
       <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
       <motion.div
         key={i18n.language}
