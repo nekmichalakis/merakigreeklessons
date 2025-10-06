@@ -11,12 +11,14 @@ import Contact from '@/components/custom/Contact.tsx';
 import Info from '@/components/custom/Info.tsx';
 import { useState } from 'react';
 import { Toaster } from '@/components/ui/sonner.tsx';
+import AccessibleSign from '@/components/custom/AccessibleSign.tsx';
 
 export default function App() {
   const [selectedOption, setSelectedOption] = useState('');
   return (
     <div className="min-h-screen w-screen overflow-x-hidden bg-background text-foreground">
       <Logo />
+      <AccessibleSign />
       <ChangeLanguageButton />
       <Header setSelectedOption={setSelectedOption} />
 
